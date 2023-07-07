@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About{% endblock title%}
+{% block content%}
+    <main>
+       <!-- Section Top -->
+        <section class="top">
+            <div class="container-fluid contain primarybg">
+                <div class="container mt-5">
+
+                    <h1 class="text-white text-center ">About Us</h1>
+                    <div class="text-center text-white">
+                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp;  <i
+                                class="fas fa-long-arrow-alt-right text-white"></i> &nbsp; &nbsp;<a href="{% url 'about' %}"
+                                class="a-tag text-white">About Us</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Top Section -->
+        <section class="mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <img src="{% static 'assets/img/about1.jpg' %}" width="100%;" alt="">
+                    </div>
+                    <div class="col-lg-6 col-md-6 mt-3">
+                        <h5 > The Olympic Games symbolize a magnificent and internationally renowned sports spectacle that occurs once every four years. It serves as an unmatched stage to promote the all-around growth of individuals through sports while actively contributing to the noble goal of fostering peace and unity worldwide. This remarkable occasion consists of two separate editions, namely the Summer Games and the Winter Games, each highlighting their own distinctive sports disciplines and captivating large audiences. </h5>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+{% endblock content%}

@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%} Home {% endblock title %}
+
+{% block content %}
+
+
+    <main>
+        <!-- Banner start -->
+        <section class="banner">
+            <div class="container-fluid">
+                <div class="row">
+                    <img src="{% static 'assets/img/home1.png' %}" class="p-0 m-0 bannerimg position-relative"
+                        alt="bakery">
+                    <div class="overlay bannerimg position-absolute">
+                        <div class="row h-100">
+                            <div class="col-12 my-auto text-center text-white">
+
+                                <h1 class="mt-5 ">City Of Yokyo</h1>
+                                <h5 class="mt-4 mb-5 text-uppercase ">FunOlympic Games 2023</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Banner End -->
+
+        <!-- Welcome  -->
+        <section class="mt-5">
+            <div class="container">
+                <div class="row text-center">
+                    <h1 class="text-dark">Welcome To FunOlympics Games</h1>
+                    <hr>
+                    <h3>The core principle of the Fun Olympics is centered around redirecting the emphasis from intense competition among top athletes to the enjoyment of taking part. These exceptional events not only encourage friendly competition but also highlight the significance of working together as a team, promoting inclusivity and building strong camaraderie among participants. By inspiring people to unite and embrace the spirit of the games, the Fun Olympics establish an environment where everyone can feel the excitement of being involved in something greater than themselves, fostering enduring connections and creating memories that extend beyond the competitive aspect.</h3>
+                </div>
+            </div>
+
+        </section>
+        <!-- End Welcome -->
+
+       
+
+        <!-- Shop By categories -->
+        <section class="mt-5 bg-white py-5">
+            <div class="container">
+                <div class="row">
+                    <h3 class="text-dark text-center">Sports</h3>
+                </div>
+                <hr>
+                <div class="row ">
+                    {% for c in category%}
+                    <div class="col-lg-4  col-md-4">
+                        <div class="card border-0" style="width: 100%; ">
+                            <a href="{% url 'catdetail' c.id%}" class="a-tag">
+                                <img class="card-img-top" src="{{c.product_category_image.url}}" width="535px" height="355" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center text-dark"> {{c.product_category}}</h5>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor%}
+                </div>
+
+            </div>
+        </section>
+        <!-- End shop by categories -->
+
+        <!-- Video -->
+        
+        <!-- End Video -->
+
+<!--        &lt;!&ndash; Featured Product  &ndash;&gt;-->
+<!--        <section class="mt-3 py-5 bg-white">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <h3 class="text-center text-dark">Featured Product of the month</h3>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <hr>-->
+<!--                <div class="row">-->
+<!--                    {% if fp_month %}-->
+<!--                    <div class="col-md-7 col-lg-7">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-3">-->
+<!--                                <div class="row">-->
+<!--                                    <img src="{{fp_month.image1.url}}" alt="product1" width="100%;"-->
+<!--                                        class="mt-3 small-product">-->
+<!--                                </div>-->
+<!--                                <div class="row">-->
+<!--                                    <img src="{{fp_month.image2.url}}" alt="product1" width="100%;"-->
+<!--                                        class="mt-2 small-product">-->
+<!--                                </div>-->
+<!--                                <div class="row">-->
+<!--                                    <img src="{{fp_month.image3.url}}" alt="product1" width="100%;"-->
+<!--                                        class="mt-2 small-product">-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="col-9">-->
+<!--                                <img src="{{fp_month.image1.url}}" alt="product1" width="95%;" class="mt-3" id="mainproduct">-->
+
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-5 col-lg-5  mt-3">-->
+<!--                        <h5 class="text-dark ">{{fp_month.product_name}}</h5>-->
+<!--                        <hr>-->
+<!--                        <h6>{{fp_month.product_price}}</h6>-->
+<!--                        <p class="mt-3">{{fp_month.product_short_description}}</p>-->
+<!--                        <p class="mt-0">{{fp_month.product_long_description}}</p>-->
+<!--                        <div class="row mt-2">-->
+<!--                            <form action="" method="">-->
+<!--                                {% csrf_token %}-->
+
+<!--                                {% if fp_month.product_category|lower == "cake"%}-->
+<!--                                    <div class="form-group">-->
+<!--                                    <label>What to write on your cake?</label>-->
+<!--                                    <input type="text" maxlength="200" class="form-control cakename-id{{fp_month.id}}" placeholder="Max 200 character" name="cakename">-->
+<!--                                </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                    <label>Size (In Pounds)</label>-->
+<!--                                    <input type="number" class="form-control cakesize-id{{fp_month.id}}" name="size">-->
+<!--                                        <span class="text-danger sizeerror{{product.id}}" ></span>-->
+<!--                                </div>-->
+<!--                                <div class="form-group">-->
+<!--                                    <label>Additional Information</label>-->
+<!--                                    <textarea class="form-control description-id{{fp_month.id}}" name="description"  rows="3"></textarea>-->
+<!--                                </div>-->
+<!--                                {% else %}-->
+<!--                                <div class="form-group">-->
+<!--                                    <label >Additional Information</label>-->
+<!--                                    <textarea class="form-control description-id{{fp_month.id}}" name="description" rows="3"></textarea>-->
+<!--                                </div>-->
+<!--                                {% endif %}-->
+
+<!--                                <div class="row mt-5">-->
+
+<!--                                    <div class="col-md-6 col-lg-6 d-flex mt-2 button-container">-->
+<!--                                        <a class="bg-light border  btn btn1hover  qtyadd" type="button" value="+"-->
+<!--                                            style="font-size: xx-large;">+</a>-->
+<!--                                        <input type="text" value="1" min="1" name="quantity"-->
+<!--                                            class="form-control quantity text-center pquantity_id{{fp_month.id}}">-->
+<!--                                        <a class="bg-light border  btn btn1hover  qtysub" type="button" value="-"-->
+<!--                                            style="font-size: xx-large;">-</a>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-6 col-lg-6 mt-2">-->
+<!--                                        <input type="button" data-index="{{fp_month.id}}" class="border px-5 py-3 btn primarybg text-white ajax_cart" value="Add To Cart">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    {% endif %}-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+<!--        &lt;!&ndash; End Featured Product  &ndash;&gt;-->
+
+<!-- Video -->
+<section class="pb-3">
+    <div class="container">
+        {% if ylink %}
+        {% for vl in ylink %}
+        <div class="video">
+            <iframe width="560" height="315" src="{{vl.Youtube_Link}}"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</section>
+<!-- End Video -->
+
+        
+<section class="mt-5 py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <h3 class="text-dark text-center">Feedback About Us</h3>
+        </div>
+        <hr>
+        <div class="row mt-5">
+            <div class="owl-carousel owl-theme">
+                {% for r in display_review %}
+                <div class="item">
+                    <div class="card border-0 col-lg-4 col-md-4 textcolor bg-dark" style="width: 100%">
+                        <div class="card-body  rounded-pill">
+                            <div class="row">
+                                <div class="col-2 ">
+                                    <i class="far fa-user"  style="font-size:35px;"></i>
+                                </div>
+                                <div class="col-10 pl-2">
+                                    <p class="card-text text-white">
+                                        {{r.review}}
+                                    </p>
+                                    <h5 class="card-title text-white ">{{r.user}}</h5>
+                                    <p class="text-white">{{r.reviewdate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+{% endblock content %}

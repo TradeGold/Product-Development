@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <!--Start Top Section  -->
+        <section class="top">
+            <div class="container-fluid contain primarybg">
+                <div class="container mt-5">
+
+                    <h1 class="text-white text-center ">FAQ</h1>
+                    <div class="text-center text-white">
+                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp; <i
+                                class="fas fa-long-arrow-alt-right text-white"></i>&nbsp; &nbsp; <a href="{% url 'faq' %}"
+                                class="a-tag text-white">FAQ</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Top Section  -->
+
+        <!-- Start Faq Section -->
+        <div class="container mt-5">
+            {% for q in qa %}
+            <div id="accordion" >
+              <div class="card">
+                <div class="card-header" id="heading{{q.id}}">
+                  <h5 class="mb-0">
+                    <button class="btn collapsed" style="text-align:left;" data-toggle="collapse" data-target="#collapse{{q.id}}" aria-expanded="false" aria-controls="collapse{{q.id}}">
+                      {{q.question}}
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapse{{q.id}}" class="collapse" aria-labelledby="heading{{q.id}}" data-parent="#accordion">
+                  <div class="card-body" style="font-size:20px;">
+                      {{q.answer}}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+
+            </div>
+        </div>
+        <!-- End Faq Section -->
+    </main>
+
+{% endblock content %}

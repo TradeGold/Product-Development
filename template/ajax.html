@@ -1,0 +1,140 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(".ajax_cart").click(function(){
+    var id = $(this).attr("data-index");
+    let cake_name = $(".cakename-id"+id).val();
+    let cake_size = $(".cakesize-id"+id).val();
+    let cake_description = $(".description-id"+id).val();
+    let totalquantity = $(".pquantity_id"+id).val();
+
+    if(typeof cake_name == "undefined"){
+        cake_name = "";
+
+    };
+    if(typeof cake_size == "undefined"){
+        cake_size = "";
+    };
+    if( cake_size != "" && cake_size < 1){
+        console.log("Please enter valid number");
+        $('.sizeerror'+id).html('Please enter a valid size')
+    }else{
+        $('.sizeerror'+id).html('')
+
+        mydata = { pid: id,quantity: totalquantity,description: cake_description,cakename: cake_name,size: cake_size,csrfmiddlewaretoken: '{{csrf_token}}'};
+        $.ajax({
+            url:"{% url 'addtocart' %}",
+            method:"POST",
+            data:mydata,
+            success:function(data){
+
+            $('.cartitemlength').html(data.status);
+            parent._alert = new parent.Function("alert(arguments[0]);");
+            parent._alert('Item added to wishlist');
+            }
+
+        })
+
+    };
+
+
+    });
+
+    $(".removecart").click(function(){
+        var cid = $(this).attr("data-index");
+
+        data = {id:cid,csrfmiddlewaretoken: '{{csrf_token}}'}
+
+        $.ajax({
+            url:"{% url 'removecart' %}",
+            method:"POST",
+            data:data,
+            success:function(data){
+                $(".cartitemlength").html(data.getcart)
+                if(data.getcart<1){
+                    $(".carttable").remove()
+                    $(".carttableamount").remove()
+
+                    $(".cart_all_empty").html("No item in a wishlist")
+
+
+                }else{
+                 $(".removecartproduct"+cid).remove()
+                 update_amounts()
+                 }
+
+
+            }
+
+        })
+    });
+    $(".cartqtyadd").click(function(){
+    var id = $(this).attr("data-index");
+    var quantity = $(".cartquantity"+id).val()
+    quantity = Number(quantity) + 1
+    quantityofcartchange(id,quantity)
+    })
+
+    $(".cartqtysub").click(function(){
+    var id = $(this).attr("data-index");
+    var quantity = $(".cartquantity"+id).val()
+    quantity = Number(quantity) - 1
+    quantityofcartchange(id,quantity)
+    })
+
+    function quantityofcartchange(id,quantity){
+
+<!--        var quantity = $(".cartquantity"+id).val()-->
+        console.log(quantity)
+        data = {qty: quantity, id: id, csrfmiddlewaretoken: '{{csrf_token}}'}
+        $.ajax({
+            url:"{% url 'cartquantityupdate' %}",
+            method:"POST",
+            data:data,
+            success:function(data){
+                console.log(data)
+
+            }
+
+        })
+
+    };
+
+$(".checkout_final").click(function(){
+    let name = $(".checkout_name").val();
+    let address =$(".checkout_address").val();
+    let date =$(".checkout_ddate").val();
+    let phno = $(".checkout_phno").val();
+
+    data = {name: name, address: address, date: date, phno:phno, csrfmiddlewaretoken: '{{csrf_token}}'}
+    $.ajax({
+            url:"{% url 'checkoutorder' %}",
+            method:"POST",
+            data:data,
+            success:function(data){
+                console.log(data)
+
+            }
+
+        })
+});
+$(".saveordertemporary").click(function(){
+    var id = $(this).attr("data-index");
+    let name = $(".checkout_name").val();
+    let address =$(".checkout_address").val();
+    let date =$(".checkout_ddate").val();
+    let phno = $(".checkout_phno").val();
+
+    data = {id:id, name: name, address: address, date: date, phno:phno, csrfmiddlewaretoken: '{{csrf_token}}'}
+    $.ajax({
+            url:"{% url 'checkourtemporaryorder' %}",
+            method:"POST",
+            data:data,
+            success:function(data){
+                console.log(data)
+
+            }
+
+        })
+});
+</script>
+

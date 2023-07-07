@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+        <!--Start Top Section  -->
+        <section class="top">
+            <div class="container-fluid contain primarybg">
+                <div class="container mt-5">
+
+                    <h1 class="text-white text-center ">News</h1>
+                    <div class="text-center text-white">
+                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp; <i
+                                class="fas fa-long-arrow-alt-right text-white"></i>&nbsp; &nbsp; <a href="{% url 'recepie' %}"
+                                class="a-tag text-white">News</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Top Section  -->
+
+        <!-- Start Recepie Section -->
+        <section class="mt-5 py-5">
+            <div class="container">
+                <div class="row">
+                    {% for r in recepie %}
+                    <div class="col-md-3 col-lg-3">
+                        <div class="card" style="width: 100%">
+                            <img src="{{ r.final_image.url }}" class="card-img-top" alt="recepie1d">
+                            <div class="card-body">
+                                <h5 class="card-title">{{r.recepie_name}}</h5>
+                                <p class="card-text">{{r.recepie_description|slice:":133"}}...</p>
+                                <a href="{% url 'recepiedetail' r.id %}" class="btn primarybg text-white">View Full News</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- End Recepie Section -->
+    </main>
+{% endblock content %}

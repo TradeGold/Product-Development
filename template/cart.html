@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <main>
+        <!--Start Top Section  -->
+        <section class="top">
+            <div class="container-fluid contain primarybg">
+                <div class="container mt-5">
+
+                    <h1 class="text-white text-center ">Wishlist</h1>
+                    <div class="text-center text-white">
+                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp; <i
+                                class="fas fa-long-arrow-alt-right text-white"></i>&nbsp; &nbsp; <a href="{% url 'cart' %}"
+                                class="a-tag text-white">Wishlist</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Top Section  -->
+
+        <!-- start cart section -->
+        <section>
+            <div class="container">
+                <div class="row" style="overflow-x: auto;">
+                    <h4 class="cart_all_empty"></h4>
+                    {% if cartitem %}
+                    <table class="table carttable" id="myTable">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Title</th>
+<!--                                <th scope="col">Quantity</th>-->
+<!--                                <th scope="col">Unit Price</th>-->
+<!--                                <th scope="col">Amount</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in cartitem %}
+                            <tr class="removecartproduct{{item.cartproduct.id}}">
+                                <td><img src="{{item.cartproduct.image1.url}}" alt="cake1" width="120px;"></td>
+                            <td>
+                                <div class="row">
+                                    <a href="{% url 'productdetail' item.cartproduct.id %}" class="colorprimary">{{item.cartproduct.product_name}}</a>
+                                </div>
+                                <div class="row">
+                                    <p>{{item.cake_description}}</p>
+                                </div>
+
+                            </td>
+                            <td >
+<!--                                <div class=" row">-->
+<!--                                    <div class="col-lg-8 col-md-10 col-sm-12 d-flex">-->
+<!--                                        <div class="form-group button-container">-->
+<!--                                            <button class="bg-light border btn btn1hover qtyadd cartqtyadd cartquantitychange" data-index="{{item.cartproduct.id}}" type="button"-->
+<!--                                        value="+" style="font-size: xx-large; width: 100%;">+</button>-->
+<!--                                    <input type="text" value="{{item.quantity}}" min="1" name="quantity"-->
+<!--                                        class="form-control quantity cartquantity{{item.cartproduct.id}} text-center">-->
+<!--                                    <button class="bg-light border btn btn1hover cartqtysub qtysub cartquantitychange" type="button"-->
+<!--                                        value="-"  data-index="{{item.cartproduct.id}}"style="font-size: xx-large; width: 100%;">-</button>-->
+<!--                                        </div>-->
+<!--                                        -->
+<!--                                    </div>-->
+<!--                                    -->
+<!--                                </div>   -->
+<!--                            </td>-->
+<!--                            <td>Rs <span class="unitprice">{{item.cartproduct.product_price}}</span></td>-->
+<!--                            <td>Rs <span class="amount"></span></td>-->
+                                <td><input type="button" data-index="{{item.cartproduct.id}}" class="btn btn-dark removecart" value="Remove">   </td>
+                            </tr>
+                       {% endfor %}
+
+                           
+                        </tbody>
+                    </table>
+
+                </div>
+<!--                <div class="row carttableamount" style="float: right;">-->
+<!--                    <h5>Total = Rs <span class="total"></span></h5>-->
+
+<!--                </div>-->
+                {% else %}
+                    <h4>No item in a wishlist</h4>
+
+                {% endif %}
+
+            </div>
+        </section>
+
+        <!-- End Cart Section -->
+
+    </main>
+{% endblock content %}

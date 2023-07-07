@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <!--Start Top Section  -->
+        <section class="top">
+            <div class="container-fluid contain primarybg">
+                <div class="container mt-5">
+                   
+                    <h1 class="text-white text-center ">News</h1>
+                    <div class="text-center text-white">
+                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp; <i
+                                class="fas fa-long-arrow-alt-right text-white"></i>&nbsp; &nbsp; <a href="{% url 'recepie' %}"
+                                class="a-tag text-white">News</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Top Section  -->
+
+        <!-- Recepie details -->
+        <section class="mt-5 py-5">
+            <div class="container">
+                <div class="row">
+                    <h5 class="text-center">{{recepie.recepie_name}}</h5>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <img src="{{ recepie.final_image.url }}" alt="recepie1" width="100%">
+                    </div>
+                    <div class="col-lg-8 col-md-6">
+                        <p>{{ recepie.recepie_description}}</p>
+                        <h6>Key Points</h6>
+                        <hr>
+                        <ul>
+                            {% for i in recepie.recepie_ingredient_list %}
+                            <li>{{ i }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <h5 class="text-center">Additional Information</h5>
+                    <hr>
+                    <p>{{ recepie.recepie_direction}}</p>
+                </div>
+            </div>
+        </section>
+        <!-- End recepie details -->
+    </main>
+{% endblock content %}

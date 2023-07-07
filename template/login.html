@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <!-- Sign Up -->
+        <section class="mt-5 bg-light py-5 pill-rounded">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-5">
+                        <div class="card border-0 shadow-lg" style="width: 100%;">
+                            <div class="card-body">
+                              <h5 class="card-title text-center"> Login </h5>
+                                {% if lerror %}
+                                <div class="alert alert-danger" role="alert">
+                                  {{ lerror }}
+                                </div>
+                                {% endif %}
+                              <form method="post" novalidate>
+                                {% csrf_token %}
+                                {% for f1 in form1 %}
+                                <div class="form-group">
+                                    {{f1.label_tag}}{{f1}}
+                                    <small class="form-text text-danger"><i>{{f1.errors|striptags}}</i></small>
+                                </div>
+                                  {% endfor %}
+                                <button type="submit" name="login" class="btn primarybg text-white mt-2">Login</button>
+                            </form>
+                            </div>
+                          </div>
+
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-5">
+                        <div class="card border-0 shadow-lg" style="width: 100%;">
+                            <div class="card-body">
+                                   {% if success %}
+                                <div class="alert alert-success" role="alert">
+                                  {{ success }}
+                                </div>
+                                {% endif %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {%if "signinsuccess" in message.tags %}
+                                        <div class="alert alert-success" role="alert">
+                                          {{ message }}
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                              <h5 class="card-title text-center">Sign Up</h5>
+                              <form action="" method="post" novalidate>
+                             {% csrf_token %}
+                              {% for fm in form2 %}
+                                <div class="form-group">
+                                    {{fm.label_tag}}{{fm}}
+                                    <small class="text-danger">{{fm.errors|striptags}}</small>
+                                </div>
+                                {%endfor%}
+
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" checked id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Login</label>
+                                </div>
+                                <button type="submit" name="sign_up" class="btn primarybg text-white btn-lg btn-block">Sign Up</button>
+                            </form>
+                            </div>
+                          </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Sign Up -->
+    </main>
+{% endblock content %}

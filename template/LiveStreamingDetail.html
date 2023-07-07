@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <!--Start Top Section  -->
+    <section class="top">
+            <div class="container-fluid contain primarybg">
+                <div class="container mt-5">
+
+                    <h1 class="text-white text-center ">Live Streaming</h1>
+                    <div class="text-center text-white">
+                        <h6> <a href="{% url 'home' %}" class="a-tag text-white">Home</a> &nbsp; &nbsp; <i
+                                class="fas fa-long-arrow-alt-right text-white"></i>&nbsp; &nbsp; <a href="{% url 'home' %}"
+                                class="a-tag text-white">Live Streaming</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!-- End Top Section  -->
+    <div class="container">
+        <div class="row mt-5">
+        {% for pd in categoryp %}
+        <div class="col-lg-4  col-md-4">
+            <div class="card choice border-0 position-relative" style="width: 100%; ">
+                <a href="{% url 'productdetail' pd.id%}"><img class="card-img-top" src="{{ pd.image1.url }}" alt="Card image cap"></a>
+
+<!--                {% with pd.id|stringformat:'s' as idstring %}-->
+<!--                {% with  pd.product_name|slice:':3'|add:idstring as id%}-->
+<!--                <button type="button"-->
+<!--                    class="a-tag primarybg text-white px-4 py-3 border-0 btnQuickShop position-absolute"-->
+<!--                    data-bs-toggle="modal" data-bs-target="#{{id}}">Quick-->
+<!--                    Shop-->
+
+<!--                </button>-->
+<!--                {% endwith %}-->
+<!--                {% endwith %}-->
+                <div class="card-body">
+                    <a href="{% url 'productdetail' pd.id%}" class="a-tag"><h5 class="card-title text-center text-dark">{{pd.product_price}}</h5></a>
+                    <a href="{% url 'productdetail' pd.id%}" class="a-tag"><p class="card-text text-dark text-center">{{pd.product_name}}</p></a>
+                </div>
+            </div>
+        </div>
+        {% with pd.id|stringformat:'s' as idstring %}
+                {% with  pd.product_name|slice:':3'|add:idstring as id%}
+        <div class="modal fade" id="{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+                {% endwith%}
+            {% endwith %}
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                <div class="modal-content" style="height:100%; overflow-y: auto;">
+                    <div class="modal-header justify-content-end">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="container-fluid">
+
+                            <div class="row pb-1">
+                                <div class="col-md-12 col-lg-7">
+                                    <div class="row">
+
+
+                                        <div class="col-12">
+                                            <img src="{{pd.image1.url}}" alt="product1" width="95%;" class="mainproduct">
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-5 ">
+
+                                    <h5 class="text-dark mt-0">{{pd.product_name}}</h5>
+                                    <hr>
+                                    <h6>Rs {{pd.product_price}}</h6>
+                                    <p class="mt-2">{{pd.product_short_description}}</p>
+                                    <p>{{pd.product_long_description}}</p>
+                                    <a href="{% url 'productdetail' pd.id%}">View Full Details</a>
+                                    <div class="row mt-2">
+                                        <form action="" method="">
+                                            {% csrf_token %}
+
+                                            {% if pd.product_category|lower == "cake"%}
+                                                <div class="form-group">
+                                                <label>What to write on your cake?</label>
+                                                <input type="text" maxlength="200" class="form-control cakename-id{{pd.id}}" placeholder="Max 200 character" name="cakename">
+                                            </div>
+                                                <div class="form-group">
+                                                <label>Size (In Pounds)</label>
+                                                <input type="number" class="form-control cakesize-id{{pd.id}}" name="size">
+                                                    <span class="text-danger sizeerror{{product.id}}" ></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Additional Information</label>
+                                                <textarea class="form-control description-id{{pd.id}}" name="description"  rows="3"></textarea>
+                                            </div>
+                                            {% else %}
+                                            <div class="form-group">
+                                                <label >Additional Information</label>
+                                                <textarea class="form-control description-id{{pd.id}}" name="description" rows="3"></textarea>
+                                            </div>
+                                            {% endif %}
+
+                                            <div class="row mt-5">
+
+                                                <div class="col-md-6 col-lg-6 d-flex mt-2 button-container">
+                                                    <a class="bg-light border  btn btn1hover  qtyadd" type="button" value="+"
+                                                        style="font-size: xx-large;">+</a>
+                                                    <input type="text" value="1" min="1" name="quantity"
+                                                        class="form-control quantity text-center pquantity_id{{pd.id}}">
+                                                    <a class="bg-light border  btn btn1hover  qtysub" type="button" value="-"
+                                                        style="font-size: xx-large;">-</a>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 mt-2">
+                                                    <input type="button" data-index="{{pd.id}}" class="border px-5 py-3 btn primarybg text-white ajax_cart" value="Add To Cart">
+                                                </div>
+
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+     </div>
+    </div>
+</main>
+{% endblock content %}
